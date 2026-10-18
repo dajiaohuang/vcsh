@@ -502,7 +502,9 @@ status_helper() {
 	}
 	VCSH_STATUS_OUTPUT=$(@GIT@ ${VCSH_GIT_OPTIONS} status --short --untracked-files='no')
 	VCSH_COMMAND_RETURN_CODE=$?
-	printf '%s\n' "$VCSH_STATUS_OUTPUT" | @SED@ -E 's@([^ ] +)@\1~/@'
+	if [ -n "$VCSH_STATUS_OUTPUT" ]; then
+		printf '%s\n' "$VCSH_STATUS_OUTPUT" | @SED@ -E 's@([^ ] +)@\1~/@'
+	fi
 }
 
 upgrade() {
